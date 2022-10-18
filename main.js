@@ -44,7 +44,6 @@ function fetchMovie() {
 
 $(document).ready(() => {
   // navigation guard
-  console.log("kontol root");
 
   if (localStorage.access_token) {
     $("#home-page").show();
