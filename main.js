@@ -5,6 +5,9 @@ function deleteMovie(id) {
 }
 
 function fetchMovie() {
+  $("#load-gif").show();
+  $(".table-container").hide();
+
   $.ajax({
     url: baseUrl + "/movies",
     method: "get",
@@ -13,29 +16,30 @@ function fetchMovie() {
     },
   })
     .done((data) => {
-      // $("#table-body").empty();
-      let HTMLliteral = "";
+      setTimeout(() => {
+        $(".table-container").show();
+        $("#load-gif").hide();
 
-      data.forEach((el) => {
-        let temp = `
-                      <tr>
-                  <td>
-                    <img
-                      src="${el.image_url}"
-                      style="width: 200px; height: 300px; object-fit: cover"
-                    />
-                  </td>
-                  <td>${el.name}</td>
-                  <td onclick="deleteMovie(${el.id})">${el.description}</td>
-                </tr>
-                      `;
+        let HTMLliteral = "";
 
-        HTMLliteral = HTMLliteral + temp;
-
-        //       $("#table-body").append(temp);
-      });
-
-      $("#table-body").html(HTMLliteral);
+        data.forEach((el) => {
+          let temp = `
+                        <tr>
+                    <td>
+                      <img
+                        src="${el.image_url}"
+                        style="width: 200px; height: 300px; object-fit: cover"
+                      />
+                    </td>
+                    <td>${el.name}</td>
+                    <td onclick="deleteMovie(${el.id})">${el.description}</td>
+                  </tr>
+                        `;
+          HTMLliteral = HTMLliteral + temp;
+          //       $("#table-body").append(temp);
+        });
+        $("#table-body").html(HTMLliteral);
+      }, 1000);
     })
     .fail((err) => {
       console.log(err);
