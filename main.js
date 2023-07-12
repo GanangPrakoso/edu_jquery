@@ -16,14 +16,12 @@ function fetchMovie() {
     },
   })
     .done((data) => {
-      setTimeout(() => {
-        $(".table-container").show();
-        $("#load-gif").hide();
+      $(".table-container").show();
 
-        let HTMLliteral = "";
+      let HTMLliteral = "";
 
-        data.forEach((el) => {
-          let temp = `
+      data.forEach((el) => {
+        let temp = `
                         <tr>
                     <td>
                       <img
@@ -35,14 +33,16 @@ function fetchMovie() {
                     <td onclick="deleteMovie(${el.id})">${el.description}</td>
                   </tr>
                         `;
-          HTMLliteral = HTMLliteral + temp;
-          //       $("#table-body").append(temp);
-        });
-        $("#table-body").html(HTMLliteral);
-      }, 1000);
+        HTMLliteral = HTMLliteral + temp;
+        //       $("#table-body").append(temp);
+      });
+      $("#table-body").html(HTMLliteral);
     })
     .fail((err) => {
       console.log(err);
+    })
+    .always(() => {
+      $("#load-gif").hide();
     });
 }
 
